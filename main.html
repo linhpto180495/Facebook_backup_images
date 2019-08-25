@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>My First Chrome Extension</title>
+  </head>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="styles/bootstrap.min.css" />
+  <script src="scripts/bootstrap.min.js"></script>
+  <style>
+    @import url("styles/styles.css");
+  </style>
+
+  <body>
+    <div class="container-fluid" style="width: 500px;">
+      <form id="login_form">
+        <div class="form-group">
+          <label for="your_token">Nhập token</label>
+          <input
+            type="ematextil"
+            class="form-control"
+            id="your_token"
+            placeholder="Nhập token bạn vào đây"
+            value="EAASVlMoM7s0BAIQVZAeXIURPNRZAc2PatnQGiO0XoXXBMP2yx3zic46G7Cl371xpGFbMZCbwHN1z3uy0YoPMiPmPEM6q6B57TZB8eFDDYxei1dEuzGGStNIo0YRZAohBS69w7KIIzIK9EVHL499QQqy9xNtfBXJb0ZBlNnjsYWh0o7J0oWASLDFbjZAcXyrSu5NG0eDGkFv3Szfw8fiFA95skG9UljT42kZD"
+          />
+        </div>
+        <input
+          type="button"
+          id="submit_token"
+          class="btn btn-primary"
+          value="Submit"
+        />
+      </form>
+      <form id="function_form" style="display: none;">
+        <div class="form-group">
+          <label style="width: 100%;text-align: end;"
+            >Tên: <b id="user_name"></b
+          ></label>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary">Chọn</button>
+            <button type="button" class="btn btn-secondary">Middle</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="scripts/actions.js"></script>
+  </body>
+</html>
