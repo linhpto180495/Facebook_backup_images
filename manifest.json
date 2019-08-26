@@ -6,6 +6,6 @@
     "default_icon": "images/icon.png",
     "default_popup": "main.html"
   },
-  "permissions": ["http://api.giphy.com/"],
+  "permissions": ["http://api.giphy.com/", "file://*/*", "https://cdn.jsdelivr.net"],
   "manifest_version": 2
 }
