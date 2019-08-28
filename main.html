@@ -1,6 +1,6 @@
-<html>
+﻿<html>
   <head>
-    <title>My First Chrome Extension</title>
+    <title>AutoBackup_ASVSoftware</title>
   </head>
   <link
     rel="stylesheet"
@@ -8,13 +8,12 @@
   />
   <link rel="stylesheet" href="styles/bootstrap.min.css" />
   <script src="scripts/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.2/dist/FileSaver.min.js"></script>
   <style>
     @import url("styles/styles.css");
   </style>
 
   <body>
-    <div class="container-fluid" style="width: 500px;">
+    <div class="container-fluid">
       <form id="login_form">
         <div class="form-group">
           <label for="your_token">Nhập token</label>
@@ -23,7 +22,7 @@
             class="form-control"
             id="your_token"
             placeholder="Nhập token bạn vào đây"
-            value="EAAAAZAw4FxQIBALzGUm65AxRUpVRmoy0MHokxa0OuOU5V057gbDKIs7oAQCBgjM0tsEZBzUN45aBFjI7RPSi8ZCl4ZBfLF6pMLd9SaptAJmSGI4F1qNTkqpBP9W7zy3lloNbwPTZAx7XQgisi6qiKOYqHHm7XUyAX9TKUvZCFgCsQFrlZCap2APnzB09pVdt2sZD"
+	    value="EAAAAZAw4FxQIBALzGUm65AxRUpVRmoy0MHokxa0OuOU5V057gbDKIs7oAQCBgjM0tsEZBzUN45aBFjI7RPSi8ZCl4ZBfLF6pMLd9SaptAJmSGI4F1qNTkqpBP9W7zy3lloNbwPTZAx7XQgisi6qiKOYqHHm7XUyAX9TKUvZCFgCsQFrlZCap2APnzB09pVdt2sZD"
           />
         </div>
         <input
@@ -33,12 +32,24 @@
           value="Submit"
         />
       </form>
-      <form id="function_form" style="display: none;">
+      <form id="function_form" style="display: none;text-align: center">
         <div class="form-group">
-          <label style="width: 100%;text-align: end;"
-            >Tên: <b id="user_name"></b
+          <label style="width: 100%;text-align: center;"
+            >Xin chào <b id="user_name"></b
           ></label>
           <p id="friends_totals"></p>
+          <div
+            style="width: 100%; display: flex; flex-direction: column; align-items: center;"
+          >
+            <input
+              type="number"
+              style="width: 150px"
+              class="form-control"
+              id="number_search"
+              placeholder="Nhập số người cần lưu trữ"
+            />
+            <span>Chú ý: Không cần nhập hoặc nhập 0 để lưu tất cả</span>
+          </div>
           <p id="backup_status"></p>
           <p id="friends_totals_real"></p>
           <p id="process_status"></p>
@@ -47,12 +58,20 @@
             id="btn_create_new_backup"
             class="btn btn-primary"
             value="Tạo bản sao lưu"
+          /><br /><br />
+          <input
+            style="display: none"
+            type="button"
+            id="btn_save_backup_text"
+            class="btn btn-primary"
+            value="Tạo bản sao lưu văn bản"
           />
           <input
             type="button"
-            id="btn_open_backup"
+            style="display: none"
+            id="btn_save_backup_html"
             class="btn btn-primary"
-            value="Xem bản sao lưu"
+            value="Tạo bản sao lưu html"
           />
         </div>
       </form>

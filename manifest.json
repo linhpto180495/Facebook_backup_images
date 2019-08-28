@@ -1,11 +1,18 @@
 {
-  "name": "Demo",
-  "description": "My First Chrome Extension",
+  "name": "AutoBackup_ASVSoftware",
+  "description": "AutoBackup_ASVSoftware",
   "version": "1.0",
   "browser_action": {
-    "default_icon": "images/icon.png",
-    "default_popup": "main.html"
+    "default_icon": "128.png"
   },
-  "permissions": ["http://api.giphy.com/", "file://*/*", "https://cdn.jsdelivr.net"],
+  "background": {
+    "scripts": ["scripts/background.js"]
+  },
+  "icons": {
+    "128": "128.png",
+    "16": "128.png",
+    "48": "128.png"
+  },
+  "permissions": ["file://*/*"],
   "manifest_version": 2
 }
