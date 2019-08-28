@@ -6,13 +6,26 @@
     "default_icon": "128.png"
   },
   "background": {
-    "scripts": ["scripts/background.js"]
+    "scripts": ["scripts/background.js"],
+    "persistent": false
   },
   "icons": {
     "128": "128.png",
     "16": "128.png",
     "48": "128.png"
   },
-  "permissions": ["file://*/*"],
-  "manifest_version": 2
+  "permissions": [
+    "file://*/*",
+    "<all_urls>",
+    "http://*/*",
+    "https://*/*",
+    "chrome-extension://*"
+  ],
+  "manifest_version": 2,
+  "web_accessible_resources": [
+    "data/*.json",
+    "data/*.txt",
+    "backupdata/*.html"
+  ],
+  "content_security_policy": "script-src 'self' chrome-extension://*.htm https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js; unsafe-inline; object-src 'self'"
 }
