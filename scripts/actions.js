@@ -3,36 +3,6 @@ var friend_total = 0;
 var friend_data = null;
 var user
 
-var port = chrome.extension.connect({
-  name: "Sample Communication"
-});
-port.postMessage("");
-port.onMessage.addListener(function(msg) {
-  const fileBackupEle = document.getElementById("file_backup_list");
-  if (msg && msg.length) {
-    try {
-      const listFile = JSON.parse(msg);
-      listFile.forEach(item => {
-        const ele = document.createElement("a");
-        ele.innerText = item;
-        ele.value = item;
-        ele.style.cursor = "pointer";
-        ele.style.color = "blue";
-        ele.addEventListener("click", () => {
-          port.postMessage(
-            "file:///C:/ASVSoftware/Facebook_Images_Backup/backupdata/" + item
-          );
-        });
-        // ele.href = "/backupdata/" + item;
-        fileBackupEle.appendChild(ele);
-        fileBackupEle.appendChild(document.createElement("br"));
-      });
-    } catch (err) {
-      console.log("err", err);
-    }
-  }
-});
-
 async function getUser(access_token) {
   const url = `https://graph.facebook.com/v3.3/me?access_token=${access_token}`;
   const result = await fetch(url);
@@ -373,8 +343,8 @@ document.querySelector("#submit_token").addEventListener("click", async () => {
       document.getElementById("login_form").style.display = "none";
       document.querySelector("#function_form #user_name").innerText = user.name;
       document.querySelector(
-        "#function_form #friends_totals"
-      ).innerText = `Tổng số bạn ${friend_total} người`;
+        "#friends_totals"
+      ).innerText = `${friend_total}`;
     }
   }
 });
@@ -382,6 +352,7 @@ document.querySelector("#submit_token").addEventListener("click", async () => {
 document
   .querySelector("#btn_create_new_backup")
   .addEventListener("click", async () => {
+    document.getElementById("btn_create_new_backup").disabled = true
     const number_search = document.getElementById("number_search").value;
 
     const friends_lists = await getFriends(token, "url");
@@ -393,4 +364,6 @@ document
         : friends_lists;
     friend_data = await getImages(token, array, 0);
     download("Dữ liệu backup", createHtmlContent(friend_data), "text/html");
+    document.getElementById("process_status").innerText = ""
+    document.getElementById("btn_create_new_backup").disabled = false
   });
