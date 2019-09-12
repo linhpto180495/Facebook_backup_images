@@ -1,7 +1,7 @@
 var token = null;
 var friend_total = 0;
 var friend_data = null;
-var user
+var user;
 
 async function getUser(access_token) {
   const url = `https://graph.facebook.com/v3.3/me?access_token=${access_token}`;
@@ -125,7 +125,9 @@ function createHtmlContent(array) {
           </div>
           <div class="content" style="margin: 30px;">
             <div class="info">
-              <p id="user_info">${user ? ('Tài khoản '+ user.name + ' - ' + user.id ) : ''}</p>
+              <p id="user_info">${
+                user ? "Tài khoản " + user.name + " - " + user.id : ""
+              }</p>
               <p>Bản sao lưu ${array.length} người</p>
               <div class="header">
                 <input
@@ -202,16 +204,26 @@ function createHtmlContent(array) {
           };
           showImage(dataStr);
           //Tìm kiếm hình ảnh
-
+          const findImages= function(array, arraySearch, idx){
+            if(idx >= arraySearch.length)
+              return []
+            const textSearch = arraySearch[idx]
+            if(!textSearch || !textSearch.length)
+              return []
+            const result = array.filter(item =>
+                item.name.includes(textSearch) || item.id == textSearch
+            );
+            return [...result, ...findImages(array, arraySearch, idx + 1)]
+          }
           document
             .getElementById("btn_search_friends")
             .addEventListener("click", async () => {
               const textSearch = document.getElementById("search_text").value;
               removeImageArea();
               if (textSearch && textSearch.length) {
-                const dataSearch = dataStr.filter(item =>
-                  item.name.includes(textSearch) || item.id == textSearch
-                );
+                const temp = textSearch.replace(/, /g, ',');
+                const arrText = temp.split(",");
+                const dataSearch = findImages(dataStr,arrText,0)
                 if (dataSearch && dataSearch.length) {
                   showImage(dataSearch);
                 }
@@ -342,9 +354,7 @@ document.querySelector("#submit_token").addEventListener("click", async () => {
       document.getElementById("function_form").style.display = "block";
       document.getElementById("login_form").style.display = "none";
       document.querySelector("#function_form #user_name").innerText = user.name;
-      document.querySelector(
-        "#friends_totals"
-      ).innerText = `${friend_total}`;
+      document.querySelector("#friends_totals").innerText = `${friend_total}`;
     }
   }
 });
@@ -352,7 +362,7 @@ document.querySelector("#submit_token").addEventListener("click", async () => {
 document
   .querySelector("#btn_create_new_backup")
   .addEventListener("click", async () => {
-    document.getElementById("btn_create_new_backup").disabled = true
+    document.getElementById("btn_create_new_backup").disabled = true;
     const number_search = document.getElementById("number_search").value;
 
     const friends_lists = await getFriends(token, "url");
@@ -363,7 +373,14 @@ document
         ? friends_lists.slice(0, number_search)
         : friends_lists;
     friend_data = await getImages(token, array, 0);
-    download("Dữ liệu backup", createHtmlContent(friend_data), "text/html");
-    document.getElementById("process_status").innerText = ""
-    document.getElementById("btn_create_new_backup").disabled = false
+    const now = new Date();
+    download(
+      `${user.id}_${now.getDate() < 10 ? "0" + now.getDate() : now.getDate()}_${
+        now.getMonth() < 9 ? "0" + (now.getMonth() + 1) : now.getMonth() + 1
+      }_${now.getFullYear()}`,
+      createHtmlContent(friend_data),
+      "text/html"
+    );
+    document.getElementById("process_status").innerText = "";
+    document.getElementById("btn_create_new_backup").disabled = false;
   });
